@@ -1,65 +1,79 @@
 #!/usr/local/bin/ruby
 
 require 'rubygems'
-require 'tinder'
 require 'yaml'
+require 'optparse'
+require 'tinder'
 
 include Tinder
 
-msg = ARGV[0] || STDIN.read
+class Roast
 
-conf = YAML.load_file(ENV['HOME'] + '/roast.yml')['development']
+  def self.main(first_msg=nil)
+    
+    config_file = YAML.load_file(ENV['HOME'] + '/roast.yml')
 
-# puts "Available chats:"
-# @chats.keys.each_with_index do |key, index|
-  # puts "(#{index}) #{key}"
-# end
+    options = Hash.new
+    options[:room] = config_file["default"]
 
-# chat_index = gets.strip.to_i || 0
+    opts = OptionParser.new do |opt|
+      opt.banner = "Usage: roast [options] message"
+      opt.separator ""
+      opt.separator "Specific options:"
+  
+      opt.on("-r", "--room [room config]",
+                 "Room name from config") do |room|
+        options[:room] = room
+      end
+    end
 
-# conf = @chats.values[chat_index]
+    opts.parse!(ARGV)
 
-# chat_name = @chats.keys[chat_index]
+    puts options.inspect
 
+    conf = config_file[options[:room]]
 
-puts "Joining #{conf['room']} ..."
+    msg = first_msg || ARGV[0] || STDIN.read
 
+    puts "Using #{conf['room']} configuration ..."
 
-campfire = Campfire.new(conf['domain'], :ssl => conf['ssl'])
+    campfire = Campfire.new(conf['domain'], :ssl => conf['ssl'])
 
-puts "Logging in..."
-campfire.login conf['username'], conf['password']
-puts "Logged in!"
+    puts "Logging in..."
+    campfire.login conf['username'], conf['password']
+    puts "Logged in!"
 
-# unless conf['default-room']
-#   puts "Available rooms:"
-# 
-#   campfire.rooms.each_with_index do |room, index|
-#     puts "(#{index}) #{room.name}"
-#   end
-# 
-#   puts "Join which one?"
-#   room = campfire.rooms[room_index]
-# else
-  room = campfire.find_room_by_name conf["room"]
-# end
+    room = campfire.find_room_by_name conf["room"]
 
-puts "Joining #{room.name} ..."
-room.join(true)
-puts "Entered room #{room.name}"
+    puts "Joining #{room.name}..."
+    room.join(true)
+    puts "Entered room #{room.name}"
 
-puts "Saying message..."
+    puts "Saying message..."
 
-if msg.split("\n").size > 1
-  room.paste(msg)
-else
-  room.speak(msg)
+    if msg.split("\n").size > 1
+      room.paste(msg)
+    else
+      room.speak(msg)
+    end
+
+    puts "Leaving room..."
+
+    room.leave
+
+    puts "Done."
+
+    exit
+  end
 end
 
-puts "Leaving room..."
-
-room.leave
-
-puts "Done."
-
-exit
+class Object
+  def to_roast
+    msg = if self.is_a?(String)
+      self
+    else
+      self.inspect.to_s
+    end
+    Roast.main(msg)
+  end
+end
