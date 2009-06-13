@@ -6,16 +6,14 @@ require 'yaml'
 
 include Tinder
 
-msg = ARGV[0]
+msg = ARGV[0] || STDIN.read
 
-@conf = YAML.load_file(ENV['HOME'] + '/roast.yml')
+conf = YAML.load_file(ENV['HOME'] + '/roast.yml')['development']
 
 # puts "Available chats:"
 # @chats.keys.each_with_index do |key, index|
   # puts "(#{index}) #{key}"
 # end
-
-puts "Which one do you want to join?"
 
 # chat_index = gets.strip.to_i || 0
 
@@ -27,7 +25,7 @@ puts "Which one do you want to join?"
 puts "Joining #{conf['room']} ..."
 
 
-campfire = Campfire.new conf['domain'], :ssl => conf['ssl']
+campfire = Campfire.new(conf['domain'], :ssl => conf['ssl'])
 
 puts "Logging in..."
 campfire.login conf['username'], conf['password']
@@ -52,12 +50,12 @@ puts "Entered room #{room.name}"
 
 puts "Saying message..."
 
-room.speak(msg)
+room.paste(msg)
 
-puts "Saying message..."
+puts "Leaving room..."
 
 room.leave
 
-puts "Leaving room..."
+puts "Done."
 
 exit
