@@ -5,11 +5,12 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "roast"
+    gem.executables = "roast"
     gem.summary = %Q{A Campfire command line tool to send simple messages to your Campfire room from the command line}
     gem.email = "kyle@digitalworkbox.com"
     gem.homepage = "http://github.com/kdaigle/roast"
     gem.authors = ["Kyle Daigle"]
-
+    gem.add_dependency "tinder"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 rescue LoadError
