@@ -50,7 +50,11 @@ puts "Entered room #{room.name}"
 
 puts "Saying message..."
 
-room.paste(msg)
+if msg.split("\n").size > 1
+  room.paste(msg)
+else
+  room.speak(msg)
+end
 
 puts "Leaving room..."
 
