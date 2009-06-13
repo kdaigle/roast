@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Kyle Daigle"]
-  s.date = %q{2009-06-12}
+  s.date = %q{2009-06-13}
   s.default_executable = %q{roast}
   s.email = %q{kyle@digitalworkbox.com}
   s.executables = ["roast"]
@@ -21,6 +21,8 @@ Gem::Specification.new do |s|
     "VERSION.yml",
     "bin/roast",
     "lib/roast.rb",
+    "lib/roast/extensions.rb",
+    "lib/roast/main.rb",
     "test/roast_test.rb",
     "test/test_helper.rb"
   ]
