@@ -9,7 +9,7 @@ module Roast
       config_file = YAML.load_file(ENV['HOME'] + '/roast.yml')
 
       options = Hash.new
-      options[:room] = room.to_s || config_file["default"]
+      options[:room] = (room ? room.to_s : nil) || config_file["default"]
 
       opts = OptionParser.new do |opt|
         opt.banner = "Usage: roast [options] message"
