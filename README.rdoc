@@ -1,7 +1,0 @@
-= roast
-
-Description goes here.
-
-== Copyright
-
-Copyright (c) 2009 Kyle Daigle. See LICENSE for details.

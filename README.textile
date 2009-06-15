@@ -1,0 +1,57 @@
+h1. Roast
+
+Roast is a command line tool and a Ruby extension that you can include into your Ruby and Rails projects that will push information to your Campfire room.  There are two simple ways that you can use Roast.  *PLEASE NOTE: this gem in its current state does not have unit tests, does not account for timeouts, and other common bad situations.  Future releases will account for all of this, but for now: user beware.*
+
+h2. Configuration Setup
+
+First, you need to setup a roast.yml file in your home directory.  This is how roast will know where and how it can connect to your Campfire room(s).
+
+<pre>
+  default: development
+
+  development:
+     domain: samplesubdomain
+     username: theuser
+     password: hispassword
+     room: "Development"
+     ssl: true
+</pre>
+
+Most of these examples are pretty self explanatory, but the basics are that you can setup multiple rooms/domains like the "development" room.  There is also a default option at the top of the page.  This should reference one of the rooms further in the file.  This is required to use Roast in Ruby or in the shell currently.
+
+h2. Via the Command Line
+
+From the UNIX-based command line:
+<pre>
+  roast "This message should go to Campfire."
+</pre>
+
+Or you can pipe information to Roast:
+<pre>
+  tail -1000 log/development.log | roast
+  ifconfig | roast
+</pre>
+
+The command line also takes a few options:
+<pre>
+ -r room_name
+ You can specify which room to use from your config file
+ -v 
+ Let the commands be verbose
+</pre>
+
+h2. Via Ruby, Rails, and Console
+
+Or you can use it from the console or application.  You can call the roast method on any object:
+<pre>
+  require 'rubygems'
+  require 'roast'
+  Model.find(:first).roast # => #<Model id: 1, name: dog>
+  "This is just a test".roast # => This is just a test
+</pre>
+
+h3. Special Thanks
+
+Special thanks to the Tinder gem for really making this possible.
+
+h4. Copyright (c) 2009 Kyle Daigle. See LICENSE for details.
