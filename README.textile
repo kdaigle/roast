@@ -51,8 +51,6 @@ Or you can use it from the console or application.  You can call the roast metho
   "This is a test to the other room".roast(:room => "other") # => This is post the message to the room specified as other
 </pre>
 
-(Current)
-
 h3. Special Thanks
 
 Special thanks to the Tinder gem for really making this possible.
