@@ -2,4 +2,4 @@
 
 require "roast"
 
-Roast::Main.run
+Roast::Main.run(:message => (ARGV[0] || STDIN.read) )
