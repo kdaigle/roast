@@ -48,7 +48,10 @@ Or you can use it from the console or application.  You can call the roast metho
   require 'roast'
   Model.find(:first).roast # => #<Model id: 1, name: dog>
   "This is just a test".roast # => This is just a test
+  "This is a test to the other room".roast(:room => "other") # => This is post the message to the room specified as other
 </pre>
+
+(Current)
 
 h3. Special Thanks
 
