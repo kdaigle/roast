@@ -2,6 +2,14 @@ h1. Roast
 
 Roast is a command line tool and a Ruby extension that you can include into your Ruby and Rails projects that will push information to your Campfire room.  There are two simple ways that you can use Roast.  *PLEASE NOTE: this gem in its current state does not have unit tests, does not account for timeouts, and other common bad situations.  Future releases will account for all of this, but for now: user beware.*
 
+h2. Installation
+
+Installation is very simple.
+
+<pre>
+  sudo gem install kdaigle-roast
+</pre>
+
 h2. Configuration Setup
 
 First, you need to setup a roast.yml file in your home directory.  This is how roast will know where and how it can connect to your Campfire room(s).
