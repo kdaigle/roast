@@ -4,9 +4,9 @@ module Roast
     include Tinder
 
     attr_accessor :message, :room, :config, :domain, :ssl, :username, :password, :verbose
-    
+
     def initialize(options)
-      @message = options[:message]      
+      @message = options[:message]
       @config = YAML.load_file(ENV['HOME'] + '/roast.yml')
       room_config = @config[(options[:room] ? options[:room].to_s : @config["default"])]
       @room = room_config['room']
@@ -17,9 +17,9 @@ module Roast
       @verbose = options[:verbose]
       self
     end
-    
+
     def self.run(options={})
-      
+
       opts = OptionParser.new do |opt|
         opt.banner = "Usage: roast [options] message"
         opt.separator ""
@@ -64,17 +64,17 @@ module Roast
 
       roast.vocalize "Done."
     end
-    
+
     def vocalize(message)
       STDOUT.puts message if self.verbose
     end
-    
-  private  
+
+  private
 
     def self.message_long?(message)
       (message.split("\n").size > 1) || (message.size >= 255)
     end
-    
+
   end
-  
+
 end
