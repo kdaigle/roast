@@ -44,7 +44,7 @@ The command line also takes a few options:
 <pre>
  -r room_name
  You can specify which room to use from your config file
- -v 
+ -v
  Let the commands be verbose
 </pre>
 
